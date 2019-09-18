@@ -34,10 +34,28 @@ export default class Page extends React.Component {
             width: "100%",
             height: "100%",
             display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
+            flexDirection: "column",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            boxShadow: "rgba(0,0,0,.8) 0px 0px 10px 0px",
+            boxSizing: "border-box",
+            position: "relative",
+            borderRadius: "8px",
             ...this.props.style
         };
+        const titleSty = {
+            width: "85%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: "15px",
+        }
+        const btnWrapSty = {
+            width: "25%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+        }
         const btnSty = {
             width: "40px",
             height: "40px",
@@ -63,14 +81,30 @@ export default class Page extends React.Component {
             fontWeight:"800",
             cursor: hasMoreItems ? "pointer" : "not-allowed"
         }
+        const contentSty = {
+            height: "90%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+        }
         const DEFAULT_HOME = <i className="iconfont icon-zhuye" style={zySty}/>;
         const DEFAULT_PREV = <i className="iconfont icon-icon-test1" style={preSty}/>;
         const DEFAULT_NEXT = <i className="iconfont icon-icon-test2" style={nextSty}/>;
         return (
             <div className="page-toggle-component" style={style}>
-                <div style={btnSty} onClick={this.goHome.bind(this)}>{this.props.homeBtn ? this.props.homeBtn : DEFAULT_HOME}</div>
-                <div style={btnSty} onClick={this.goPrev.bind(this)}>{this.props.prevBtn ? this.props.prevBtn : DEFAULT_PREV}</div>
-                <div style={btnSty} onClick={this.goNext.bind(this)}>{this.props.nextBtn ? this.props.nextBtn : DEFAULT_NEXT}</div>
+                <header style={{height:"10%",display: "flex"}}>
+                    <section className="title" style={titleSty}>
+                        {this.props.title}
+                    </section>
+                    <section className="btn" style={btnWrapSty}>
+                        <div style={btnSty} onClick={this.goHome.bind(this)}>{this.props.homeBtn ? this.props.homeBtn : DEFAULT_HOME}</div>
+                        <div style={btnSty} onClick={this.goPrev.bind(this)}>{this.props.prevBtn ? this.props.prevBtn : DEFAULT_PREV}</div>
+                        <div style={btnSty} onClick={this.goNext.bind(this)}>{this.props.nextBtn ? this.props.nextBtn : DEFAULT_NEXT}</div>
+                    </section>
+                </header>
+                <section className="content" style={contentSty}>
+                    {this.props.children}
+                </section>
             </div>
         );
     }

@@ -1,0 +1,58 @@
+.test {
+    width: 800px;
+    height: 500px;
+    >.page-toggle-component{
+        >section {
+            >.info-wrap {
+                width: 100%;
+                height: 80%;
+                background-color: rgba(255, 255, 255, 0.7);
+                box-shadow: rgba(0,0,0,.8) 0px 0px 10px 0px;
+                box-sizing: border-box;
+                position: relative;
+                border-radius: 8px;
+                display: flex;
+                flex-shrink: 0;
+                align-items: center;
+                >.left {
+                    width: 35%;
+                    height: 80%;
+                    display: flex;
+                    justify-content: center;
+                    >img {
+                        width: 90%;
+                        border-radius: 8px;
+                    }
+                }
+                >.right {
+                    width: 65%;
+                    height: 80%;
+                    display: flex;   
+                    color:#474747; 
+                    display: flex;
+                    flex-direction: column;
+                    >.text {
+                        height: 65%;
+                        line-height: 1.5;
+                        padding-right: 15px;
+                        overflow: hidden;
+                    }
+                    >.info {
+                        margin-top: 5%;
+                        height: 30%;
+                        padding-right: 15px;
+                        line-height: 1.5;
+                        >.name {
+                            color:#666; 
+                            text-align: right;
+                        }
+                        >.time {
+                            color:#999; 
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
