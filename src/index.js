@@ -1,11 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+const DEFAULT_PROPS = {
+    headerHeight: "20%",
+    actBtnColor: "#000", // 激活状态下按钮默认颜色
+    btnColor: "#4c4c4c",  
+    cursor: "not-allowed",
+    actCursor: "pointer"
+}
 
 export default class Page extends React.Component {
     constructor(props) {
         super();
         this.state = {};
     }
-
 
     /****** 返回首页 *******/
     goHome() {
@@ -42,15 +50,19 @@ export default class Page extends React.Component {
             borderRadius: "8px",
             ...this.props.style
         };
+        const headerSty = {
+            height: !this.props.headerHeight ? DEFAULT_PROPS.headerHeight : this.props.headerHeight,
+            display: "flex",
+        }
         const titleSty = {
-            width: "85%",
+            width: "80%",
             height: "100%",
             display: "flex",
             alignItems: "center",
             paddingLeft: "15px",
         }
         const btnWrapSty = {
-            width: "25%",
+            width: "20%",
             height: "100%",
             display: "flex",
             justifyContent: "space-evenly",
@@ -71,41 +83,56 @@ export default class Page extends React.Component {
         }
         const preSty = {
             fontSize:"40px",
-            color:  currentPage === 1 ? "#4c4c4c" : "#000" ,
+            color:  currentPage === 1 ? DEFAULT_PROPS.btnColor : DEFAULT_PROPS.actBtnColor ,
             fontWeight:"800",
-            cursor: currentPage === 1 ? "not-allowed" : "pointer" 
+            cursor: currentPage === 1 ? DEFAULT_PROPS.cursor : DEFAULT_PROPS.actCursor
         }
         const nextSty = {
             fontSize:"40px",
-            color: hasMoreItems ? "#000" : "#4c4c4c",
+            color: hasMoreItems ? DEFAULT_PROPS.actBtnColor : DEFAULT_PROPS.btnColor,
             fontWeight:"800",
-            cursor: hasMoreItems ? "pointer" : "not-allowed"
+            cursor: hasMoreItems ? DEFAULT_PROPS.actCursor : DEFAULT_PROPS.cursor
         }
         const contentSty = {
-            height: "90%",
+            width: "100%",
+            height: "80%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            ...this.props.contentSty,
         }
         const DEFAULT_HOME = <i className="iconfont icon-zhuye" style={zySty}/>;
         const DEFAULT_PREV = <i className="iconfont icon-icon-test1" style={preSty}/>;
         const DEFAULT_NEXT = <i className="iconfont icon-icon-test2" style={nextSty}/>;
         return (
             <div className="page-toggle-component" style={style}>
-                <header style={{height:"10%",display: "flex"}}>
-                    <section className="title" style={titleSty}>
+                <header style={headerSty}>
+                    <section style={titleSty}>
                         {this.props.title}
                     </section>
-                    <section className="btn" style={btnWrapSty}>
+                    <section style={btnWrapSty}>
                         <div style={btnSty} onClick={this.goHome.bind(this)}>{this.props.homeBtn ? this.props.homeBtn : DEFAULT_HOME}</div>
                         <div style={btnSty} onClick={this.goPrev.bind(this)}>{this.props.prevBtn ? this.props.prevBtn : DEFAULT_PREV}</div>
                         <div style={btnSty} onClick={this.goNext.bind(this)}>{this.props.nextBtn ? this.props.nextBtn : DEFAULT_NEXT}</div>
                     </section>
                 </header>
-                <section className="content" style={contentSty}>
+                <section className="page-toggle-component-content" style={contentSty}>
                     {this.props.children}
                 </section>
             </div>
         );
     }
+}
+Page.propTypes = {
+    loadData: PropTypes.func.isRequired,  
+    length: PropTypes.number.isRequired,  
+    currentPage: PropTypes.number.isRequired,  
+    hasMoreItems: PropTypes.bool.isRequired,  
+    style: PropTypes.object,  
+    headerHeight: PropTypes.string,
+    contentSty: PropTypes.object,  
+    title: PropTypes.object,  
+    homeBtn: PropTypes.object,
+    prevBtn: PropTypes.object,
+    nextBtn: PropTypes.object,
 }
